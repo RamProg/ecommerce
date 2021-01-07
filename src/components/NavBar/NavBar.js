@@ -1,12 +1,12 @@
 import React from 'react'
 // import './navbar.css'
-import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
+import { CartWidget } from '../CartWidget/CartWidget'
 
 export const NavBar = () => {
 
@@ -27,7 +27,8 @@ export const NavBar = () => {
                         <NavDropdown.Item href="#action/3.1">See Cart</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">Pay Cart</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.3">Empty Cart</NavDropdown.Item>
-                    </NavDropdown>
+                   </NavDropdown>
+                   <CartWidget/>
                 </Nav>
                 <Form inline>
                     <FormControl type="text" placeholder="Search" className="mr-sm-2" />
