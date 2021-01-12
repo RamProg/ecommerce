@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './ItemCount.css';
 
-export const ItemCount = ({ stock, initial, onAdd }) => {
+export const ItemCount = ({ restar, sumar, onAdd, contador }) => {
 
-    const [contador, setContador] = useState(parseInt(initial))
-
-    const sumar = () => { contador < stock && setContador(contador + 1) }
-    const restar = () => { contador && setContador(contador - 1) }
-    const ondAdd = () => {console.log(contador)}
     return (
         <React.Fragment>
-            <button onClick={restar}>-</button>{contador}<button onClick={sumar}>+</button>
-            <br/>
-            <button onClick={ondAdd}>Anotámelo en la cuenta</button>
+
+            <div className="d-sm-flex">
+            <button className="btn btn-info" onClick={restar}>-</button>
+            <div className="font-weight-bold ml-2 mr-2">{contador}</div>
+            <button className="btn btn-info" onClick={sumar}>+</button>
+            </div>
+            <button className="btn btn-outline-info" onClick={onAdd}>Añadir</button>
+
+            
+
+
         </React.Fragment>
     )
 }
