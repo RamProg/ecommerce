@@ -1,7 +1,6 @@
 
 #wrapper {
-    background-color: lightblue;
-    min-height: 90vh;
+    min-height: 90vh !important;
     padding: 20px;
   }
 
