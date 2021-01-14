@@ -2,6 +2,11 @@
 #wrapper {
     min-height: 90vh !important;
     padding: 20px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align: middle;
+    margin-top: 20px;
   }
 
 #greeting {
