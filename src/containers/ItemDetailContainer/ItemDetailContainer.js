@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { ItemList } from '../../components/ItemList/ItemList'
 import Spinner from 'react-bootstrap/Spinner'
-import './ItemListContainer.css'
+import { ItemDetails } from '../../components/ItemDetails/ItemDetails'
+import './ItemDetailContainer.css'
 
 const getItems = () => {
     return [
@@ -29,8 +29,8 @@ const getItems = () => {
     ]
 }
 
-export const ItemListContainer = ({ greeting }) => {
-    const [products, setProducts] = useState()
+export const ItemDetailContainer = () => {
+    const [products, setProducts] = useState([{}])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -39,11 +39,11 @@ export const ItemListContainer = ({ greeting }) => {
                 resolve(getItems)
             }, 2000)
         })
+
         call.then(response => {
             setLoading(false)
             return response
-        })
-            .then(response => setProducts(response))
+        }).then(response => setProducts(response))
     }, [])
 
     // useEffect(() => {
@@ -51,20 +51,10 @@ export const ItemListContainer = ({ greeting }) => {
     // },[products])
 
     return (
-
-        <div id="wrapper">
-            {/* <div id="greeting">
-                {greeting}
-            </div>
-            <div id="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-             </div> */}
-
+        <React.Fragment>
             {loading ? <Spinner animation="border" variant="info" /> :
-
-                <ItemList items={products} />
+                <ItemDetails item={products[0]} />
             }
-        </div>
-
+        </React.Fragment>
     )
 }

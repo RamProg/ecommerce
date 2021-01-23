@@ -6,7 +6,7 @@ export const ItemCount = ({ restar, sumar, onAdd, contador }) => {
     return (
         <React.Fragment>
 
-            <div className="d-sm-flex">
+            <div>
             <button className="btn btn-info" onClick={restar}>-</button>
             <div className="font-weight-bold ml-2 mr-2">{contador}</div>
             <button className="btn btn-info" onClick={sumar}>+</button>

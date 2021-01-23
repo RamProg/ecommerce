@@ -7,28 +7,35 @@ import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import { CartWidget } from '../CartWidget/CartWidget'
+import { Link } from 'react-router-dom'
 
 export const NavBar = () => {
+
+
+    const categories = [
+        { id: 1, name: "Spaceships" },
+        { id: 2, name: "Weapons" },
+        { id: 3, name: "Fuel and Others" }]
 
     return (
 
         <Navbar bg="dark" variant="dark" expand="lg">
-            <Navbar.Brand href="#home">Cosmic Ecommerce</Navbar.Brand>
+            <Navbar.Brand as={Link} to="/">Cosmic Ecommerce</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto ">
-                    <Nav.Link href="#home">Home</Nav.Link>
                     <NavDropdown title="Categories" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">Spaceships</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">Weapons</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Fuel and others</NavDropdown.Item>
+                        {categories.map(cat => {
+                            return <NavDropdown.Item as={Link} to={`/categories/${cat.id}`}>{cat.name}</NavDropdown.Item>
+                        }
+                        )}
                     </NavDropdown>
                     <NavDropdown title="Cart" id="basic-nav-dropdown">
                         <NavDropdown.Item href="#action/3.1">See Cart</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">Pay Cart</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.3">Empty Cart</NavDropdown.Item>
-                   </NavDropdown>
-                   <CartWidget/>
+                    </NavDropdown>
+                    <CartWidget />
                 </Nav>
                 <Form inline>
                     <FormControl type="text" placeholder="Search" className="mr-sm-2" />

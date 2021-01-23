@@ -6,7 +6,7 @@ export const CartWidget = () => {
     return (
 
         <div>
-            <img className="mt-2" src="/img/cart.png" alt="cart"></img>
+            <img id="cart" className="mt-2" src="/img/cart.png" alt="cart"></img>
         </div>
 
     )

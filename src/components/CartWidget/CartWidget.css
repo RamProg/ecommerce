@@ -1,8 +1,8 @@
-img {
+#cart {
     max-width: 30px;
     opacity: 0.65;
 }
 
-img:hover {
+#cart:hover {
     opacity: 1;
 }
