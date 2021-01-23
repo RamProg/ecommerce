@@ -26,7 +26,7 @@ export const NavBar = () => {
                 <Nav className="mr-auto ">
                     <NavDropdown title="Categories" id="basic-nav-dropdown">
                         {categories.map(cat => {
-                            return <NavDropdown.Item as={Link} to={`/categories/${cat.id}`}>{cat.name}</NavDropdown.Item>
+                            return <NavDropdown.Item as={Link} key={cat.id} to={`/categories/${cat.id}`}>{cat.name}</NavDropdown.Item>
                         }
                         )}
                     </NavDropdown>

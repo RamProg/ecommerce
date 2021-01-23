@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+# Welcome Cosmic E-Commerce!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Hi! My name is Ramiro and this is a project done in React for CoderHouse.
 
-## Available Scripts
+## What is this?
 
-In the project directory, you can run:
+This is a basic ecommerce app currently in development
 
-### `npm start`
+## What is it about?
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+I got a little ahead of times and thought about an ecommerce to sell spaceships and accesories like dragon ball stickers.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## How does it work?
 
-### `npm test`
+This an SPA (Single Page Application) that allows to navigate through different categories and products and them to your cart.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Is this a real business?
 
-### `npm run build`
+**No**, unfortunately I don't currently own any spaceships and therefore I can't sell them.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Should I invest in this?
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Sure, you can hire me as a developer and hopefully when spaceships are in the market we will the firsts in getting into it.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## How can I contact you?
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+You can send me an email to: *ramacode.drused    aleeas   com* or find me in my website: www.ramacode.com

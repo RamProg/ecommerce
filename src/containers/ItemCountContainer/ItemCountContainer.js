@@ -11,7 +11,6 @@ export const ItemCountContainer = ({ stock, initial }) => {
         (contador === 1) ? "Agregaste 1 solo elemento. No querés comprar más?" :
         `Agregaste ${contador} elementos.`
         alert(msg)
-        console.log(msg)
     }
     return (
         <React.Fragment>

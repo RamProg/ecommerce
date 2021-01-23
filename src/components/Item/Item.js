@@ -23,9 +23,7 @@ export const Item = ({ item }) => {
 
                 </Card.Body>
             </Card>
-            <p>
             <ItemCountContainer stock={5} initial={1} />
-            </p>
         </React.Fragment>
     )
 }
