@@ -1,6 +1,5 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card'
-import { ItemCountContainer } from '../../containers/ItemCountContainer/ItemCountContainer'
 import { Link } from 'react-router-dom'
 import './Item.css';
 
@@ -23,7 +22,6 @@ export const Item = ({ item }) => {
 
                 </Card.Body>
             </Card>
-            <ItemCountContainer stock={5} initial={1} />
         </React.Fragment>
     )
 }
