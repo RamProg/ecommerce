@@ -42,7 +42,7 @@ export const ItemDetailContainer = () => {
         const call = new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve(allItems)
-            }, 2000)
+            }, 1)
         })
         call.then(response => {
             setProduct(response.find(e => e.id === itemId))

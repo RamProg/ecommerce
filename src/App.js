@@ -7,7 +7,7 @@ import { ItemDetailContainer } from './containers/ItemDetailContainer/ItemDetail
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import {ThemeContext} from './context/cartContext'
+import {Context} from './context/cartContext'
 
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
   return (
     <React.StrictMode>
       <BrowserRouter>
-        <ThemeContext.Provider value={[]}>
+        <Context>
           <div id="full">
             <NavBar />
             <Switch>
@@ -34,7 +34,7 @@ function App() {
               <Route path="/" component={Error} />
             </Switch>
           </div>
-        </ThemeContext.Provider>
+        </Context>
       </BrowserRouter>
     </React.StrictMode>
   );

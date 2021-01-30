@@ -45,7 +45,7 @@ export const ItemListContainer = ({ greeting }) => {
             setLoading(true)
             setTimeout(() => {
                 resolve(allItems)
-            }, 2000)
+            }, 1)
         })
         call.then(response => {
             setLoading(false)

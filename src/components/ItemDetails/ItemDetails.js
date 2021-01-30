@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 // import {useParams} from 'react-router-dom'
 import './ItemDetails.css';
 import { ItemCount } from '../../components/ItemCount/ItemCount'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import { CartContext } from '../../context/cartContext'
 
 export const ItemDetails = ({ item }) => {
 
     const [finishFlag, setFinishFlag] = useState(false)
     const [addedQuantity, setAddedQuantity] = useState(0)
+    const [cart, addItem, removeItem, clear, isInCart] = useContext(CartContext)
+    const history = useHistory();
 
     const showFinish = () => {
         setFinishFlag(true)
@@ -15,9 +18,15 @@ export const ItemDetails = ({ item }) => {
     function addHandler(quantityToAdd) {
         if (quantityToAdd) {
             setAddedQuantity(quantityToAdd)
-            // return addedQuantity
         }
     }
+    function finish() {
+        console.log("finish")
+        console.log(item, addedQuantity)
+        addItem(item, addedQuantity)
+        history.push("/cart");
+    }
+
     return (
         <React.Fragment>
             <h1>{item.title}</h1>
@@ -28,7 +37,7 @@ export const ItemDetails = ({ item }) => {
                 <ItemCount stock={5} initial={1} onAdd={addHandler} onFinish={showFinish} />
             }
                 {finishFlag &&
-                    <Link to="/cart"><button>Finaliza tu compra</button></Link>
+                    <button onClick={finish}>Finaliza tu compra</button>
                 }
             </div>
         </React.Fragment>
