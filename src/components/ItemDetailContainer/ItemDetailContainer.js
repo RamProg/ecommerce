@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Spinner from 'react-bootstrap/Spinner'
-import { ItemDetails } from '../../components/ItemDetails/ItemDetails'
+import { ItemDetails } from './ItemDetails/ItemDetails'
 import './ItemDetailContainer.css'
 import { useParams } from 'react-router-dom'
 
@@ -42,7 +42,7 @@ export const ItemDetailContainer = () => {
         const call = new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve(allItems)
-            }, 1)
+            }, 1000)
         })
         call.then(response => {
             setProduct(response.find(e => e.id === itemId))
@@ -51,11 +51,10 @@ export const ItemDetailContainer = () => {
     }, [itemId])
 
     return (
-        <React.Fragment>
-
+        <div class="container center">
             {loading ? <Spinner animation="border" variant="info" /> :
                 <ItemDetails item={product} />
             }
-        </React.Fragment>
+        </div>
     )
 }

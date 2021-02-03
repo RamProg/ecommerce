@@ -1,0 +1,23 @@
+#product-image {
+    height: 250px;
+}
+
+.item-container {
+    background-color:lightyellow;
+    color:darkslategrey;
+    border-radius: 50px;
+    text-align: center;
+    max-width: 50%;
+    margin: 20px auto auto;
+}
+
+.item-container:hover > .inside-item {
+    background-color: lightsteelblue;
+    color: darkslateblue !important;
+    border-radius: 50px;
+
+}
+
+.price::before {
+content:"$ ";
+}

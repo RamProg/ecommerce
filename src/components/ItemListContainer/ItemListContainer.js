@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ItemList } from '../../components/ItemList/ItemList'
+import { ItemList } from './ItemList/ItemList'
 import Spinner from 'react-bootstrap/Spinner'
 import './ItemListContainer.css'
 import { useParams } from 'react-router-dom'
@@ -45,7 +45,7 @@ export const ItemListContainer = ({ greeting }) => {
             setLoading(true)
             setTimeout(() => {
                 resolve(allItems)
-            }, 1)
+            }, 1000)
         })
         call.then(response => {
             setLoading(false)
@@ -58,7 +58,7 @@ export const ItemListContainer = ({ greeting }) => {
 
     return (
 
-        <div id="wrapper">
+        <div class="container wrapper">
             {/* <div id="greeting">
                 {greeting}
             </div>

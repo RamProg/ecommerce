@@ -1,11 +1,10 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { CartContext } from '../../context/cartContext'
+import {Link} from 'react-router-dom'
+import './Cart.css'
 
 export const Cart = () => {
     const [cart, addItem, removeItem, clear, isInCart] = useContext(CartContext)
-
-    // useEffect(() => {
-    // }, [cart])
 
     function handleDelete(id) {
         removeItem(id)
@@ -15,8 +14,14 @@ export const Cart = () => {
         clear()
     }
 
+    function totalPrice () {
+        let price = 0
+        cart.forEach(e => price += e.item.price * e.quantity);
+        return price
+    }
+
     return (
-        <div>
+        <div class="container cart">
             {console.log(cart)}
             <h1>This is cart</h1>
             {cart.length ? <div>
@@ -26,10 +31,13 @@ export const Cart = () => {
                         <li key={e.item.id}>{e.item.title} x {e.quantity}
                             <button onClick={() => handleDelete(e.item.id)}>Eliminar elemento</button></li>)}
                 </ul>
-                <button onClick={handleClear}>Vaciar carrito</button>
+                <p>Precio total: $ {totalPrice()}</p>
+                <button onClick={handleClear}>Vaciar carrito</button><button>Finalizar la compra</button>
             </div>
                 :
-                <p>el cart esta vacio</p>
+
+                <p>el cart esta vacio<br/>
+                <Link to="/">Volver al Inicio</Link></p>
             }
         </div>
     )

@@ -16,10 +16,6 @@ export const ItemCount = ({ stock, initial, onAdd, onFinish }) => {
         setMoreflag(false)
     }
     const onEachAdd = () => {
-        const msg = !contador ? "No has agregado ningún elemento" :
-            (contador === 1) ? "Agregaste 1 solo elemento. No querés comprar más?" :
-                `Agregaste ${contador} elementos.`
-        alert(msg)
         if (contador) {
             onAdd(contador)
             onFinish()

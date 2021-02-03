@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './NavBar.css'
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
@@ -6,11 +6,13 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
-import { CartWidget } from '../CartWidget/CartWidget'
+import { CartWidget } from './CartWidget/CartWidget'
 import { Link } from 'react-router-dom'
+import { CartContext } from '../../context/cartContext'
 
 export const NavBar = () => {
 
+    const [cart] = useContext(CartContext)
 
     const categories = [
         { id: 1, name: "Spaceships" },
@@ -30,12 +32,11 @@ export const NavBar = () => {
                         }
                         )}
                     </NavDropdown>
-                    <NavDropdown title="Cart" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">See Cart</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">Pay Cart</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Empty Cart</NavDropdown.Item>
-                    </NavDropdown>
-                    <CartWidget />
+                    {cart.length ?
+                    <Link to={'/cart'}><CartWidget /></Link>
+                    :
+                    <></>
+                    }
                 </Nav>
                 <Form inline>
                     <FormControl type="text" placeholder="Search" className="mr-sm-2" />

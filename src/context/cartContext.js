@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 export const CartContext = React.createContext([]);
 
 export const Context = ({ children }) => {
-    const [cart, setCart] = useState([{ item: {}, quantity: 1 }])
+    const [cart, setCart] = useState([])
 
     const addItem = (item, quantity) => {
         let index = cart.indexOf(isInCart(item.id))
