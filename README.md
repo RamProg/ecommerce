@@ -1,4 +1,4 @@
-# Welcome Cosmic E-Commerce!
+# Welcome to Cosmic E-Commerce!
 
 Hi! My name is Ramiro and this is a project done in React for CoderHouse.
 
