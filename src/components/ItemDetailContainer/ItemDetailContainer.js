@@ -3,33 +3,8 @@ import Spinner from 'react-bootstrap/Spinner'
 import { ItemDetails } from './ItemDetails/ItemDetails'
 import './ItemDetailContainer.css'
 import { useParams } from 'react-router-dom'
+import { getFirestore } from '../../firebase'
 
-const allItems = [
-    {
-        id: '103265',
-        title: "Aerodynamic 3000",
-        description: "Nave para viajes de larga distancia",
-        category: '1',
-        price: "43000",
-        pictureUrl: "../img/spaceship.jpg",
-    },
-    {
-        id: '897465',
-        title: "Axios Ultra",
-        description: "Combustible para pistear como un campeón",
-        category: '2',
-        price: "140",
-        pictureUrl: "../img/spaceship.jpg",
-    },
-    {
-        id: '465512',
-        title: "Calcos para la nave",
-        description: "Colección de calcomanías de dragon ball y los caballeros del zodiaco",
-        category: '3',
-        price: "91",
-        pictureUrl: "../img/spaceship.jpg",
-    }
-]
 
 export const ItemDetailContainer = () => {
 
@@ -39,15 +14,20 @@ export const ItemDetailContainer = () => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        const call = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(allItems)
-            }, 1000)
-        })
-        call.then(response => {
-            setProduct(response.find(e => e.id === itemId))
-            setLoading(false)
-        })
+        setLoading(true)
+        const db = getFirestore()
+        const itemsCollection = db.collection("items")
+        const item = itemsCollection.doc(itemId)
+        item.get()
+            .then((doc) => {
+                if (!doc.exists) {
+                    console.log("el item no existe")
+                    return;
+                }
+                console.log(doc)
+                setProduct({ id: doc.id, ...doc.data() })
+            }).catch(error => console.log("error searching item ", error))
+            .finally(() => setLoading(false))
     }, [itemId])
 
     return (

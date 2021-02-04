@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import './NavBar.css'
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
@@ -9,15 +9,34 @@ import Button from 'react-bootstrap/Button'
 import { CartWidget } from './CartWidget/CartWidget'
 import { Link } from 'react-router-dom'
 import { CartContext } from '../../context/cartContext'
+import { getFirestore } from '../../firebase'
 
 export const NavBar = () => {
 
     const [cart] = useContext(CartContext)
+    const [categories, setCategories] = useState([])
+    // const categories = [
+    //     { id: 'PsTsXMr7koVsUDRRwUBr', name: "Spaceships" },
+    //     { id: 'r4C4zVdVshHYQfDWFJC3', name: "Weapons" },
+    //     { id: 'rqZTILQufJ4rPko5t4vh', name: "Fuel and Others" }]
 
-    const categories = [
-        { id: 1, name: "Spaceships" },
-        { id: 2, name: "Weapons" },
-        { id: 3, name: "Fuel and Others" }]
+    useEffect(() => {
+        const db = getFirestore()
+        const itemsCollection = db.collection("categories")
+        itemsCollection.get()
+            .then((querySnapshot) => {
+                if (querySnapshot.size === 0) {
+                    console.log("no hay categories")
+                }
+                setCategories(querySnapshot.docs.map(doc => {
+                    return ({
+                        id: doc.id,
+                        ...doc.data()
+                    })
+                })
+                )
+            }).catch(error => console.log("error searching categories ", error))
+    }, [])
 
     return (
 
@@ -28,14 +47,14 @@ export const NavBar = () => {
                 <Nav className="mr-auto ">
                     <NavDropdown title="Categories" id="basic-nav-dropdown">
                         {categories.map(cat => {
-                            return <NavDropdown.Item as={Link} key={cat.id} to={`/categories/${cat.id}`}>{cat.name}</NavDropdown.Item>
+                            return <NavDropdown.Item as={Link} key={cat.key} to={`/categories/${cat.key}`}>{cat.key.charAt(0).toUpperCase() + cat.key.slice(1)}</NavDropdown.Item>
                         }
                         )}
                     </NavDropdown>
                     {cart.length ?
-                    <Link to={'/cart'}><CartWidget /></Link>
-                    :
-                    <></>
+                        <Link to={'/cart'}><CartWidget /></Link>
+                        :
+                        <></>
                     }
                 </Nav>
                 <Form inline>
