@@ -9,7 +9,7 @@ export const ItemDetails = ({ item }) => {
 
     const [finishFlag, setFinishFlag] = useState(false)
     const [addedQuantity, setAddedQuantity] = useState(0)
-    const [cart, addItem, removeItem, clear, isInCart] = useContext(CartContext)
+    const { addItem } = useContext(CartContext)
     const history = useHistory();
 
     const showFinish = () => {

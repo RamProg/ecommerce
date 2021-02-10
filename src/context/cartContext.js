@@ -21,7 +21,7 @@ export const Context = ({ children }) => {
     const removeItem = itemId => {
         if (itemId) {
             let index = cart.indexOf(isInCart(itemId))
-            if (index => 0) setCart([...cart.slice(0, index), ...cart.slice(index + 1)])
+            if (index >= 0) setCart([...cart.slice(0, index), ...cart.slice(index + 1)])
         }
     }
     const clear = () => setCart([])
@@ -29,7 +29,7 @@ export const Context = ({ children }) => {
     const isInCart = id => cart.find(e => e.item.id === id)
 
     return (
-        <CartContext.Provider value={[cart, addItem, removeItem, clear, isInCart]}>
+        <CartContext.Provider value={{ cart, addItem, removeItem, clear, isInCart }}>
             {children}
         </CartContext.Provider>
     )

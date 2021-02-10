@@ -1,6 +1,6 @@
 import './App.css';
 import { NavBar } from './components/NavBar/NavBar'
-import { Cart } from './components/Cart/Cart'
+import { CartContainer } from './components/CartContainer/CartContainer'
 import { Error } from './components/Error/Error'
 import { ItemListContainer } from './components/ItemListContainer/ItemListContainer'
 import { ItemDetailContainer } from './components/ItemDetailContainer/ItemDetailContainer'
@@ -28,7 +28,7 @@ function App() {
                 <ItemListContainer greeting={"Bienvenido a Cosmic"} />
               </Route>
               <Route exact path="/cart">
-                <Cart />
+                <CartContainer />
               </Route>
               <Route exact path="/">
                 <ItemListContainer greeting={"Bienvenido a Cosmic"} />

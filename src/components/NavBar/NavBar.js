@@ -13,7 +13,7 @@ import { getFirestore } from '../../firebase'
 
 export const NavBar = () => {
 
-    const [cart] = useContext(CartContext)
+    const { cart } = useContext(CartContext)
     const [categories, setCategories] = useState([])
     // const categories = [
     //     { id: 'PsTsXMr7koVsUDRRwUBr', name: "Spaceships" },
