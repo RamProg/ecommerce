@@ -31,6 +31,17 @@ export const ItemDetails = ({ item }) => {
         setAddedQuantity(0)
         setFinishFlag(false)
     }
+   
+
+
+
+
+
+// ¡¡¡¡¡¡¡¡¡¡¡ ARREGLAR EL STOCK !!!!!!!!!!!!!!!
+
+
+
+
 
     return (
         <React.Fragment>

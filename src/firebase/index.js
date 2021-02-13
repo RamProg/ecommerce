@@ -1,8 +1,10 @@
 import firebase from 'firebase/app'
 import '@firebase/firestore'
 
+const APIKEY = process.env.REACT_APP_FIREBASE_APIKEY
+
 const app = firebase.initializeApp({
-    apiKey: "AIzaSyD0tuyFhPw2CT5zAKp0XuXGT1_SQ9698uQ",
+    apiKey: APIKEY,
     authDomain: "ramacode-ecommerce.firebaseapp.com",
     projectId: "ramacode-ecommerce",
     storageBucket: "ramacode-ecommerce.appspot.com",
