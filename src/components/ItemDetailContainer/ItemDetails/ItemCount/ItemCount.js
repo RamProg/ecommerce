@@ -5,12 +5,12 @@ export const ItemCount = ({ stock, initial, onAdd, onFinish }) => {
   const [lessflag, setLessflag] = useState(false);
   const [moreflag, setMoreflag] = useState(false);
 
-  useEffect(() => {
+  useEffect(initial => {
     if (initial === 0) {
       setLessflag(true);
       setMoreflag(true);
     }
-  }, []);
+  }, [initial]);
 
   const sumar = () => {
     contador < stock && setContador(contador + 1);

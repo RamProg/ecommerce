@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { CartContext } from '../../context/cartContext'
 import { getFirestore } from '../../firebase'
 import firebase from 'firebase/app'
@@ -9,13 +9,28 @@ export const CartContainer = () => {
     const { cart, removeItem, clear } = useContext(CartContext)
     const [ClientData, setClientData] = useState({})
     const [orderNumber, setOrderNumber] = useState(null)
+    const [ableFinish, setAbleFinish] = useState("disabled")
 
 
-    function updateName(name) { setClientData({ ...ClientData, name }) }
+    function updateName(name) {
+        if (!name) setAbleFinish("disabled")
+        setClientData({ ...ClientData, name })
+    }
 
-    function updatePhone(phone) { setClientData({ ...ClientData, phone }) }
+    function updatePhone(phone) {
+        if (!phone) setAbleFinish("disabled")
+        setClientData({ ...ClientData, phone })
+    }
 
-    function updateMail(mail) { setClientData({ ...ClientData, mail }) }
+    function updateMail(mail) {
+        if (!mail) setAbleFinish("disabled")
+        setClientData({ ...ClientData, mail })
+    }
+
+    useEffect(() => {
+        if (ClientData.name && ClientData.phone && ClientData.mail) setAbleFinish("")
+    }, [ClientData])
+
 
     function getTotal() {
         let total = 0
@@ -55,8 +70,6 @@ export const CartContainer = () => {
                 })
         })
     }
-
-    const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     function validateName(name) {
         let flag = false
@@ -127,6 +140,6 @@ export const CartContainer = () => {
     return (
         <Cart handleDelete={handleDelete} handleClear={handleClear} totalPrice={getTotal}
             createOrder={createOrder} updateName={updateName} updatePhone={updatePhone}
-            updateMail={updateMail} orderNumber={orderNumber} />
+            updateMail={updateMail} orderNumber={orderNumber} ableFinish={ableFinish} />
     )
 }

@@ -3,22 +3,12 @@ import './CartWidget.css';
 import { CartContext } from '../../../context/cartContext'
 
 export const CartWidget = () => {
-    const { cart } = useContext(CartContext)
+    const { ammount } = useContext(CartContext)
 
-    function ammountOfItems() {
-        let counter = 0
-        cart.forEach(e => {
-            counter += e.quantity
-        });
-        console.log('contador' + counter)
-        return counter
-    }
     return (
-
-        <div>
+        <div className="widget">
             <img id="cart" className="mt-2" src="/img/cart.png" alt="cart"></img>
-            {ammountOfItems()}
+            <span className="count-widget"><span className="count-widget-text">{ammount}</span></span>
         </div>
-
     )
 }

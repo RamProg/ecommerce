@@ -22,8 +22,8 @@ function App() {
               <Route exact path="/item/:itemId">
                 <ItemDetailContainer />
               </Route>
-              // Decidí usar categoryKey en lugar de categoryId para mejorar la estética de la URL
-              // Me pareció que quedaba mejor que diga /spaceships en lugar de /ASn39dhweidj9328
+              {/* Decidí usar categoryKey en lugar de categoryId para mejorar la estética de la URL */}
+              {/* Me pareció que quedaba mejor que diga /spaceships en lugar de /ASn39dhweidj9328*/}
               <Route exact path="/categories/:categoryKey">
                 <ItemListContainer greeting={"Bienvenido a Cosmic"} />
               </Route>

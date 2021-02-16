@@ -1,8 +1,32 @@
 #cart {
-    max-width: 30px;
-    opacity: 0.65;
+  max-width: 30px;
+  opacity: 0.65;
 }
 
 #cart:hover {
-    opacity: 1;
+  opacity: 1;
 }
+
+.count-widget {
+  background-color: lightblue;
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  display: inline-block;
+  text-align: center;
+  vertical-align:middle;
+  margin-top: 20px;
+}
+
+.widget {
+    margin-right: 20px;
+}
+
+.count-widget-text {
+    color: darkblue;
+    font-weight: 700;
+    margin-bottom: 50px;
+    vertical-align:auto;
+  }

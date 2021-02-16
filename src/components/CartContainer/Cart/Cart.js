@@ -1,15 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { CartContext } from '../../../context/cartContext'
 import { Link } from 'react-router-dom'
-import { getFirestore } from '../../../firebase'
 import './Cart.css'
 import Alert from 'react-bootstrap/Alert';
 
 export const Cart = ({ handleDelete, handleClear, totalPrice, createOrder, updateName,
-    updatePhone, updateMail, orderNumber }) => {
+    updatePhone, updateMail, orderNumber, ableFinish }) => {
     const { cart } = useContext(CartContext)
-    const [order, setOrder] = useState({})
-
     return (
         <div class="container cart">
             <h1>This is cart</h1>
@@ -30,7 +27,7 @@ export const Cart = ({ handleDelete, handleClear, totalPrice, createOrder, updat
                     <input type="text" onChange={e => updatePhone(e.target.value)} id="phone"></input></label><br />
                     <label for="email">Email:
                     <input type="text" onChange={e => updateMail(e.target.value)} id="email"></input></label><br />
-                    <input type="submit" onClick={createOrder} value="Finalizar la compra" />
+                    <input type="submit" disabled={ableFinish} onClick={createOrder} value="Realizar compra" />
                 </form>
                 <br />
                 {orderNumber === 'loading' &&
