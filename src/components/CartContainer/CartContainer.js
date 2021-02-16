@@ -10,21 +10,11 @@ export const CartContainer = () => {
     const [ClientData, setClientData] = useState({})
     const [orderNumber, setOrderNumber] = useState(null)
     const [ableFinish, setAbleFinish] = useState("disabled")
+    const CREATED = "generada"
 
-
-    function updateName(name) {
-        if (!name) setAbleFinish("disabled")
-        setClientData({ ...ClientData, name })
-    }
-
-    function updatePhone(phone) {
-        if (!phone) setAbleFinish("disabled")
-        setClientData({ ...ClientData, phone })
-    }
-
-    function updateMail(mail) {
-        if (!mail) setAbleFinish("disabled")
-        setClientData({ ...ClientData, mail })
+    function updateData(id, data) {
+        if (!data) setAbleFinish("disabled")
+        setClientData({ ...ClientData, [id]: data })
     }
 
     useEffect(() => {
@@ -103,7 +93,8 @@ export const CartContainer = () => {
                 items: getItems(),
                 date: firebase.firestore.Timestamp.fromDate(new Date()),
                 quantity: getQuantity(),
-                total: getTotal()
+                total: getTotal(),
+                status: CREATED,
             }
             const db = getFirestore()
             const batch = db.batch()
@@ -139,7 +130,6 @@ export const CartContainer = () => {
 
     return (
         <Cart handleDelete={handleDelete} handleClear={handleClear} totalPrice={getTotal}
-            createOrder={createOrder} updateName={updateName} updatePhone={updatePhone}
-            updateMail={updateMail} orderNumber={orderNumber} ableFinish={ableFinish} />
+            createOrder={createOrder} updateData={updateData} orderNumber={orderNumber} ableFinish={ableFinish} />
     )
 }

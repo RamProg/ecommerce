@@ -7,7 +7,7 @@ import { CartWidget } from './CartWidget/CartWidget'
 import { Link } from 'react-router-dom'
 import { CartContext } from '../../context/cartContext'
 import { getFirestore } from '../../firebase'
-import {CartModal} from './CartWidget/CartModal/CartModal'
+import { CartModal } from './CartWidget/CartModal/CartModal'
 
 export const NavBar = () => {
 
@@ -51,12 +51,7 @@ export const NavBar = () => {
                     </NavDropdown>
 
                 </Nav>
-                {cart.length ?
-                    <Link onClick={handleShow}><CartWidget /></Link>
-                    :
-                    <></>
-                }
-
+                <Link onClick={handleShow}><CartWidget /></Link>
                 <CartModal show={show} handleShow={handleShow} handleClose={handleClose} />
             </Navbar.Collapse>
         </Navbar>

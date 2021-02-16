@@ -1,11 +1,10 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { CartContext } from '../../../context/cartContext'
 import { Link } from 'react-router-dom'
 import './Cart.css'
 import Alert from 'react-bootstrap/Alert';
 
-export const Cart = ({ handleDelete, handleClear, totalPrice, createOrder, updateName,
-    updatePhone, updateMail, orderNumber, ableFinish }) => {
+export const Cart = ({ handleDelete, handleClear, totalPrice, createOrder, updateData, orderNumber, ableFinish }) => {
     const { cart } = useContext(CartContext)
     return (
         <div class="container cart">
@@ -22,11 +21,11 @@ export const Cart = ({ handleDelete, handleClear, totalPrice, createOrder, updat
                 <br />
                 <form>
                     <label for="name">Name:
-                    <input type="text" onChange={e => updateName(e.target.value)} id="name"></input></label><br />
+                    <input type="text" onChange={e => updateData(e.target.id, e.target.value)} id="name"></input></label><br />
                     <label for="phone">Phone:
-                    <input type="text" onChange={e => updatePhone(e.target.value)} id="phone"></input></label><br />
-                    <label for="email">Email:
-                    <input type="text" onChange={e => updateMail(e.target.value)} id="email"></input></label><br />
+                    <input type="text" onChange={e => updateData(e.target.id, e.target.value)} id="phone"></input></label><br />
+                    <label for="mail">Email:
+                    <input type="text" onChange={e => updateData(e.target.id, e.target.value)} id="mail"></input></label><br />
                     <input type="submit" disabled={ableFinish} onClick={createOrder} value="Realizar compra" />
                 </form>
                 <br />

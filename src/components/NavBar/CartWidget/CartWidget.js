@@ -8,7 +8,11 @@ export const CartWidget = () => {
     return (
         <div className="widget">
             <img id="cart" className="mt-2" src="/img/cart.png" alt="cart"></img>
-            <span className="count-widget"><span className="count-widget-text">{ammount}</span></span>
+            {ammount ?
+                <span className="count-widget"><span className="count-widget-text">{ammount}</span></span>
+                :
+                <React.Fragment></React.Fragment>
+            }
         </div>
     )
 }

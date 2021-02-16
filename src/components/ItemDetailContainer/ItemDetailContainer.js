@@ -4,6 +4,7 @@ import { ItemDetails } from './ItemDetails/ItemDetails'
 import './ItemDetailContainer.css'
 import { useParams } from 'react-router-dom'
 import { getFirestore } from '../../firebase'
+import {Link} from 'react-router-dom'
 
 
 export const ItemDetailContainer = () => {
@@ -32,8 +33,13 @@ export const ItemDetailContainer = () => {
 
     return (
         <div class="container center">
-            {loading ? <Spinner animation="border" variant="info" /> :
-                <ItemDetails item={product} />
+            {loading ?
+                <Spinner animation="border" variant="info" /> :
+                product.id ?
+                    <ItemDetails item={product} /> :
+                    <p><br />Wow! You are looking for a product that does not exist, maybe it has not been invented yet? Try again in a couple years!
+                    <br /><br /><Link to="/">Go back</Link></p>
+
             }
         </div>
     )
