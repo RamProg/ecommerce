@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import './CartModal.css';
-import { Context } from '../../../../context/CartContext'
+import { WLContext } from '../../../../context/WishListtContext'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
 
 export const CartModal = ({ show, handleShow, handleClose }) => {
-    const { cart, removeItem, clear } = useContext(Context)
+    const { wishList, removeItem, clear } = useContext(WLContext)
     function handleDelete(id) {
         removeItem(id)
     }

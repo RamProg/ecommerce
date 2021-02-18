@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
-export const CartContext = React.createContext([]);
+export const Context = React.createContext([]);
 
-export const Context = ({ children }) => {
+export const CartContext = ({ children }) => {
     const [cart, setCart] = useState([])
     const [ammount, setAmmount] = useState(0)
 
@@ -29,7 +29,10 @@ export const Context = ({ children }) => {
     const removeItem = itemId => {
         if (itemId) {
             let index = cart.indexOf(isInCart(itemId))
-            if (index >= 0) setCart([...cart.slice(0, index), ...cart.slice(index + 1)])
+            if (index >= 0) {
+                setAmmount(ammount - cart[index].quantity)
+                setCart([...cart.slice(0, index), ...cart.slice(index + 1)])
+            }
         }
     }
     const clear = () => {
@@ -40,8 +43,8 @@ export const Context = ({ children }) => {
     const isInCart = id => cart.find(e => e.item.id === id)
 
     return (
-        <CartContext.Provider value={{ cart, ammount, addItem, removeItem, clear, isInCart }}>
+        <Context.Provider value={{ cart, ammount, addItem, removeItem, clear, isInCart }}>
             {children}
-        </CartContext.Provider>
+        </Context.Provider>
     )
 }

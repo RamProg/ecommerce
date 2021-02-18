@@ -4,7 +4,7 @@ import { ItemDetails } from './ItemDetails/ItemDetails'
 import './ItemDetailContainer.css'
 import { useParams } from 'react-router-dom'
 import { getFirestore } from '../../firebase'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 export const ItemDetailContainer = () => {

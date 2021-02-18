@@ -1,15 +1,27 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { CartContext } from '../../context/cartContext'
+import { Context } from '../../context/CartContext'
 import { getFirestore } from '../../firebase'
 import firebase from 'firebase/app'
 import '@firebase/firestore'
 import { Cart } from './Cart/Cart'
+import { Redirect } from 'react-router-dom'
+import { UserContext } from "../../context/UserContext";
+import 'firebase/auth'
+import { useFirebaseApp } from 'reactfire'
 
 export const CartContainer = () => {
-    const { cart, removeItem, clear } = useContext(CartContext)
-    const [ClientData, setClientData] = useState({})
+    const _firebase = useFirebaseApp();
+
+    const { cart, removeItem, clear } = useContext(Context)
     const [orderNumber, setOrderNumber] = useState(null)
     const [ableFinish, setAbleFinish] = useState("disabled")
+    const { auth } = useContext(UserContext);
+    
+    const mail = _firebase.auth().currentUser.email
+
+    const [ClientData, setClientData] = useState({mail})
+
+
     const CREATED = "generada"
 
     function updateData(id, data) {
@@ -129,7 +141,14 @@ export const CartContainer = () => {
     }
 
     return (
-        <Cart handleDelete={handleDelete} handleClear={handleClear} totalPrice={getTotal}
-            createOrder={createOrder} updateData={updateData} orderNumber={orderNumber} ableFinish={ableFinish} />
+        <React.Fragment>
+            {auth ?
+                <Cart handleDelete={handleDelete} handleClear={handleClear} totalPrice={getTotal}
+                    createOrder={createOrder} updateData={updateData} orderNumber={orderNumber}
+                    ableFinish={ableFinish} mail={mail} />
+                :
+                <Redirect to={{ pathname: '/' }} />
+            }
+        </React.Fragment>
     )
 }

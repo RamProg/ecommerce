@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-import { CartContext } from '../../../context/cartContext'
+import { Context } from '../../../context/CartContext'
 import { Link } from 'react-router-dom'
 import './Cart.css'
 import Alert from 'react-bootstrap/Alert';
 
-export const Cart = ({ handleDelete, handleClear, totalPrice, createOrder, updateData, orderNumber, ableFinish }) => {
-    const { cart } = useContext(CartContext)
+export const Cart = ({ handleDelete, handleClear, totalPrice, createOrder, updateData, orderNumber, ableFinish, mail }) => {
+    const { cart } = useContext(Context)
     return (
         <div class="container cart">
             <h1>This is cart</h1>
@@ -25,7 +25,7 @@ export const Cart = ({ handleDelete, handleClear, totalPrice, createOrder, updat
                     <label for="phone">Phone:
                     <input type="text" onChange={e => updateData(e.target.id, e.target.value)} id="phone"></input></label><br />
                     <label for="mail">Email:
-                    <input type="text" onChange={e => updateData(e.target.id, e.target.value)} id="mail"></input></label><br />
+                    <input type="text" value={mail} disabled="disabled" id="mail"></input></label><br />
                     <input type="submit" disabled={ableFinish} onClick={createOrder} value="Realizar compra" />
                 </form>
                 <br />

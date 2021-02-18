@@ -1,3 +1,8 @@
 NavBar {
     min-height: 10vh !important;
 }
+
+.greeting {
+    margin-right: 40px;
+    color: whitesmoke;
+}

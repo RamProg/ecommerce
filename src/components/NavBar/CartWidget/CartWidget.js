@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import './CartWidget.css';
-import { CartContext } from '../../../context/cartContext'
+import { Context } from '../../../context/CartContext'
 
 export const CartWidget = () => {
-    const { ammount } = useContext(CartContext)
+    const { ammount } = useContext(Context)
 
     return (
         <div className="widget">
