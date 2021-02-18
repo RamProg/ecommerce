@@ -51,7 +51,7 @@ export const SignupContainer = () => {
                     <input onChange={e => setEmail(e.target.value)} type="email" id="email" /><br />
                     <label htmlFor="password">Password</label>
                     <input onChange={e => setPassword(e.target.value)} type="password" id="password" /><br />
-                    <button onClick={submit}>Login</button>
+                    <button onClick={submit}>Signup</button>
                 </div>
             }
         </div>

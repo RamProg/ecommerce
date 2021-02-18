@@ -8,6 +8,7 @@ import {WishListWidget} from './WishListWidget/WishListWidget'
 import { Link } from 'react-router-dom'
 import { getFirestore } from '../../firebase'
 import { CartModal } from './CartWidget/CartModal/CartModal'
+import { WishListModal } from './WishListWidget/WishListModal/WishListModal'
 import 'firebase/auth'
 import { useFirebaseApp } from 'reactfire'
 import { UserContext } from "../../context/UserContext";
@@ -18,7 +19,8 @@ export const NavBar = () => {
     const firebase = useFirebaseApp();
 
     const [categories, setCategories] = useState([])
-    const [show, setShow] = useState(false);
+    const [showCartModal, setShowCartModal] = useState(false);
+    const [showWishListModal, setShowWishListModal] = useState(false);
     const { auth, setAuth } = useContext(UserContext);
     const history = useHistory();
 
@@ -26,8 +28,11 @@ export const NavBar = () => {
 
     useEffect(() => { }, [currentUser])
 
-    function handleShow() { setShow(true) }
-    function handleClose() { setShow(false) }
+    function handleShowCartModal() { setShowCartModal(true) }
+    function handleCloseCartModal() { setShowCartModal(false) }
+
+    function handleShowWishListModal() { setShowWishListModal(true) }
+    function handleCloseWishListModal() { setShowWishListModal(false) }
 
     useEffect(() => {
         const db = getFirestore()
@@ -69,9 +74,10 @@ export const NavBar = () => {
                             <>
                                 <Nav class="greeting">Hi, {currentUser.displayName}</Nav>
                                 <Link class="mr-5" onClick={() => setAuth(false)} to="/">Logout</Link>
-                                <Link onClick={handleShow}><CartWidget /></Link>
-                                <Link onClick={handleShow}><WishListWidget /></Link>
-                                <CartModal show={show} handleShow={handleShow} handleClose={handleClose} />
+                                <Link onClick={handleShowCartModal}><CartWidget /></Link>
+                                <Link onClick={handleShowWishListModal}><WishListWidget /></Link>
+                                <CartModal show={showCartModal} handleClose={handleCloseCartModal} />
+                                <WishListModal show={showWishListModal} handleClose={handleCloseWishListModal} />
                             </>
                             :
                             <><Link className="mr-5" to="/login">Login</Link>

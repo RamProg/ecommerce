@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 // import {useParams} from 'react-router-dom'
 import "./ItemDetails.css";
 import { ItemCount } from "./ItemCount/ItemCount";
-import { useHistory } from "react-router-dom";
 import { Context } from "../../../context/CartContext";
 import { WLContext } from "../../../context/WishListContext";
 import { UserContext } from "../../../context/UserContext";
@@ -10,9 +9,10 @@ import { UserContext } from "../../../context/UserContext";
 export const ItemDetails = ({ item }) => {
   const [finishFlag, setFinishFlag] = useState(false);
   const [addedQuantity, setAddedQuantity] = useState(0);
+  const [stock, setStock] = useState(item.stock);
+  const [finishMessage, setfinishMessage] = useState("");
   const { addItem } = useContext(Context);
   const { addItemToWishList } = useContext(WLContext);
-  const history = useHistory();
   const { auth } = useContext(UserContext);
 
   const showFinish = () => {
@@ -26,22 +26,24 @@ export const ItemDetails = ({ item }) => {
   }
 
   function finish() {
-    console.log("finish");
-    console.log(item, addedQuantity);
     addItem(item, addedQuantity);
-    history.push("/cart");
+    setStock(stock-addedQuantity)
+    setFinishFlag(false);
+    setfinishMessage("Added to Cart")
+    setAddedQuantity(0)
   }
 
   function toWishList() {
-    console.log("finish");
-    console.log(item, addedQuantity);
     addItemToWishList(item, addedQuantity);
-    history.push("/cart");
+    setFinishFlag(false);
+    setfinishMessage("Added to WishList")
+    setAddedQuantity(0)
   }
 
   function undo() {
     setAddedQuantity(0);
     setFinishFlag(false);
+    setfinishMessage("")
   }
 
   function getInitial(stock) {
@@ -60,16 +62,16 @@ export const ItemDetails = ({ item }) => {
           <div>
             {auth && !addedQuantity && <div>
               <ItemCount
-                stock={item.stock}
+                stock={stock}
                 initial={getInitial(item.stock)}
                 onAdd={addHandler}
                 onFinish={showFinish}
-              /> {parseInt(item.stock) <= 0 && <p>Sorry, there is no more stock</p>}
+              />
+              <p>{finishMessage}</p>
+              {parseInt(item.stock) <= 0 && <p>Sorry, there is no more stock</p>}
             </div>}
             {finishFlag && (
-              <div>
-                Seleccionaste {addedQuantity}
-                items <br />
+              <div>Seleccionaste {addedQuantity} items <br />
                 <button onClick={undo}> Deshacer </button>
                 <button onClick={finish}> Agregar al carrito </button>
                 <button onClick={toWishList}> Agregar a la WishList </button>

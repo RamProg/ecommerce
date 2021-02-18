@@ -26,7 +26,7 @@ export const WishListContext = ({ children }) => {
         }
     }
 
-    const removeItem = itemId => {
+    const removeItemFromWishList = itemId => {
         if (itemId) {
             let index = wishList.indexOf(isInWishList(itemId))
             if (index >= 0) {
@@ -43,7 +43,7 @@ export const WishListContext = ({ children }) => {
     const isInWishList = id => wishList.find(e => e.item.id === id)
 
     return (
-        <WLContext.Provider value={{ wishList, ammountWishList, addItemToWishList, removeItem, clear, isInWishList }}>
+        <WLContext.Provider value={{ wishList, ammountWishList, addItemToWishList, removeItemFromWishList, clear, isInWishList }}>
             {children}
         </WLContext.Provider>
     )
