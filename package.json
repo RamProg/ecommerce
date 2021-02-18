@@ -1,6 +1,9 @@
 {
   "name": "ecommerce",
   "version": "0.1.0",
+  "engines": {
+    "node": "14.x"
+  },
   "private": true,
   "dependencies": {
     "@react-firebase/auth": "^0.2.10",
