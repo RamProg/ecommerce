@@ -2,11 +2,12 @@ import React, { useState, useContext } from "react";
 // import {useParams} from 'react-router-dom'
 import "./ItemDetails.css";
 import { ItemCount } from "./ItemCount/ItemCount";
+import { CustomItem } from "./CustomItem/CustomItem";
 import { Context } from "../../../context/CartContext";
 import { WLContext } from "../../../context/WishListContext";
 import { UserContext } from "../../../context/UserContext";
 
-export const ItemDetails = ({ item }) => {
+export const ItemDetails = ({ item, selectOption }) => {
   const [finishFlag, setFinishFlag] = useState(false);
   const [addedQuantity, setAddedQuantity] = useState(0);
   const [stock, setStock] = useState(item.stock);
@@ -21,13 +22,15 @@ export const ItemDetails = ({ item }) => {
 
   function addHandler(quantityToAdd) {
     if (quantityToAdd) {
-      setAddedQuantity(quantityToAdd);
+      if (item.options && !item.selectedOption) {
+        alert("You need to chose a variant")
+      } else setAddedQuantity(quantityToAdd);
     }
   }
 
   function finish() {
     addItem(item, addedQuantity);
-    setStock(stock-addedQuantity)
+    setStock(stock - addedQuantity)
     setFinishFlag(false);
     setfinishMessage("Added to Cart")
     setAddedQuantity(0)
@@ -44,12 +47,17 @@ export const ItemDetails = ({ item }) => {
     setAddedQuantity(0);
     setFinishFlag(false);
     setfinishMessage("")
+    delete item.selectedOption
   }
 
   function getInitial(stock) {
     let initial = 1;
     if (parseInt(stock) <= 0) initial = 0
     return initial;
+  }
+
+  function handleOptionSelected(option) {
+    selectOption(option)
   }
 
   return (
@@ -61,6 +69,7 @@ export const ItemDetails = ({ item }) => {
           <img id="product-image" src={item.pictureUrl} alt="pic" />
           <div>
             {auth && !addedQuantity && <div>
+              {item.options && <CustomItem options={item.options} handleOptionSelected={handleOptionSelected} />}
               <ItemCount
                 stock={stock}
                 initial={getInitial(item.stock)}

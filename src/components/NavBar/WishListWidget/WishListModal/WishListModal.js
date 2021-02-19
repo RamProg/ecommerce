@@ -10,17 +10,17 @@ export const WishListModal = ({ show, handleClose }) => {
     const { wishList, removeItemFromWishList, clear } = useContext(WLContext)
     const { addItem } = useContext(Context)
 
-    function handleDelete(id) {
-        removeItemFromWishList(id)
+    function handleDelete(id, selectedOption = null) {
+        removeItemFromWishList(id, selectedOption)
     }
 
     function handleClear() {
         clear()
     }
 
-    function handleMoveToCart(item, quantity) {
+    function handleMoveToCart(item, quantity, selectedOption) {
         addItem(item, quantity)
-        removeItemFromWishList(item.id)
+        removeItemFromWishList(item.id, selectedOption)
     }
 
     function totalPrice() {
@@ -28,6 +28,13 @@ export const WishListModal = ({ show, handleClose }) => {
         wishList.forEach(e => price += e.item.price * e.quantity);
         return price
     }
+
+    function getKey(id, selectedOption = null) {
+        let value = id
+        if (selectedOption) value += selectedOption
+        return value
+    }
+
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -39,9 +46,9 @@ export const WishListModal = ({ show, handleClose }) => {
                         <ul>
                             {wishList.map(e =>
                                 (e.item.id && e.quantity) &&
-                                <li key={e.item.id}>{e.item.title} x {e.quantity}: $ {e.item.price}<span> </span>
-                                    <button onClick={() => handleDelete(e.item.id)}>Eliminar elemento</button>
-                                    <button onClick={() => handleMoveToCart(e.item, e.quantity)}>Mover a Cart</button>
+                                <li key={getKey(e.item.id, e.item.selectedOption)}>{e.item.title} {e.item.selectedOption && <span>| Variant: {e.item.selectedOption} |</span>} x {e.quantity}: $ {e.item.price}<span> </span>
+                                    <button onClick={() => handleDelete(e.item.id, e.item.selectedOption)}>Eliminar elemento</button>
+                                    <button onClick={() => handleMoveToCart(e.item, e.quantity, e.item.selectedOption)}>Mover a Cart</button>
                                 </li>)}
                         </ul>
                         <span>Precio total: $ {totalPrice()} </span>

@@ -126,8 +126,8 @@ export const CartContainer = () => {
         }
     }
 
-    function handleDelete(id) {
-        removeItem(id)
+    function handleDelete(id, selectedOption = null) {
+        removeItem(id, selectedOption)
     }
 
     function handleClear() {

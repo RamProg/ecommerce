@@ -6,6 +6,13 @@ import Alert from 'react-bootstrap/Alert';
 
 export const Cart = ({ handleDelete, handleClear, totalPrice, createOrder, updateData, orderNumber, ableFinish, mail }) => {
     const { cart } = useContext(Context)
+
+    function getKey(id, selectedOption = null) {
+        let value = id
+        if (selectedOption) value += selectedOption
+        return value
+    }
+
     return (
         <div class="container cart">
             <h1>This is cart</h1>
@@ -13,8 +20,8 @@ export const Cart = ({ handleDelete, handleClear, totalPrice, createOrder, updat
                 <ul>
                     {cart.map(e =>
                         (e.item.id && e.quantity) &&
-                        <li key={e.item.id}>{e.item.title} x {e.quantity}: $ {e.item.price}<span> </span>
-                            <button onClick={() => handleDelete(e.item.id)}>Eliminar elemento</button></li>)}
+                        <li key={getKey(e.item.id, e.item.selectedOption)}>{e.item.title} {e.item.selectedOption && <span>| Variant: {e.item.selectedOption} |</span>} $ {e.item.price} c/u | x {e.quantity} | TOTAL $ {e.item.price * e.quantity}<span> </span>
+                            <button onClick={() => handleDelete(e.item.id, e.item.selectedOption)}>Eliminar elemento</button></li>)}
                 </ul>
                 <p>Precio total: $ {totalPrice()}</p>
                 <button onClick={handleClear}>Vaciar carrito</button><br />

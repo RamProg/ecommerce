@@ -14,6 +14,10 @@ export const ItemDetailContainer = () => {
     const [product, setProduct] = useState({})
     const [loading, setLoading] = useState(true)
 
+    function selectOption(selectedOption) {
+        setProduct({ ...product, selectedOption })
+    }
+
     useEffect(() => {
         setLoading(true)
         const db = getFirestore()
@@ -36,7 +40,7 @@ export const ItemDetailContainer = () => {
             {loading ?
                 <Spinner animation="border" variant="info" /> :
                 product.id ?
-                    <ItemDetails item={product} /> :
+                    <ItemDetails selectOption={selectOption} item={product} /> :
                     <p><br />Wow! You are looking for a product that does not exist, maybe it has not been invented yet? Try again in a couple years!
                     <br /><br /><Link to="/">Go back</Link></p>
 

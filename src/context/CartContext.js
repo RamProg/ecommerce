@@ -7,7 +7,7 @@ export const CartContext = ({ children }) => {
     const [ammount, setAmmount] = useState(0)
 
     const addItem = (item, quantity) => {
-        let index = cart.indexOf(isInCart(item.id))
+        let index = cart.indexOf(isInCart(item.id, item.selectedOption))
         if (index === -1) {
             if (item && quantity) {
                 setCart([
@@ -26,9 +26,9 @@ export const CartContext = ({ children }) => {
         }
     }
 
-    const removeItem = itemId => {
+    const removeItem = (itemId, selectedOption = null) => {
         if (itemId) {
-            let index = cart.indexOf(isInCart(itemId))
+            let index = cart.indexOf(isInCart(itemId, selectedOption))
             if (index >= 0) {
                 setAmmount(ammount - cart[index].quantity)
                 setCart([...cart.slice(0, index), ...cart.slice(index + 1)])
@@ -36,11 +36,18 @@ export const CartContext = ({ children }) => {
         }
     }
     const clear = () => {
-        setCart([]) 
+        setCart([])
         setAmmount(0)
     }
 
-    const isInCart = id => cart.find(e => e.item.id === id)
+    const isInCart = (id, option = null) => {
+        let value
+        if (!option) value = cart.find(e => e.item.id === id)
+        else {
+            value = cart.find(e => e.item.id === id && e.item.selectedOption === option)
+        }
+        return value
+    }
 
     return (
         <Context.Provider value={{ cart, ammount, addItem, removeItem, clear, isInCart }}>

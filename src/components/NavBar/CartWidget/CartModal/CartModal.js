@@ -5,10 +5,10 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
 
-export const CartModal = ({ show, handleShow, handleClose }) => {
+export const CartModal = ({ show, handleClose }) => {
     const { cart, removeItem, clear } = useContext(Context)
-    function handleDelete(id) {
-        removeItem(id)
+    function handleDelete(id, selectedOption = null) {
+        removeItem(id, selectedOption)
     }
 
     function handleClear() {
@@ -20,6 +20,13 @@ export const CartModal = ({ show, handleShow, handleClose }) => {
         cart.forEach(e => price += e.item.price * e.quantity);
         return price
     }
+
+    function getKey(id, selectedOption = null) {
+        let value = id
+        if (selectedOption) value += selectedOption
+        return value
+    }
+
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -31,8 +38,8 @@ export const CartModal = ({ show, handleShow, handleClose }) => {
                         <ul>
                             {cart.map(e =>
                                 (e.item.id && e.quantity) &&
-                                <li key={e.item.id}>{e.item.title} x {e.quantity}: $ {e.item.price}<span> </span>
-                                    <button onClick={() => handleDelete(e.item.id)}>Eliminar elemento</button></li>)}
+                                <li key={getKey(e.item.id, e.item.selectedOption)}>{e.item.title} {e.item.selectedOption && <span>| Variant: {e.item.selectedOption} |</span>} x {e.quantity}: $ {e.item.price}<span> </span>
+                                    <button onClick={() => handleDelete(e.item.id, e.item.selectedOption)}>Eliminar elemento</button></li>)}
                         </ul>
                         <span>Precio total: $ {totalPrice()} </span>
                         <button onClick={handleClear}>Vaciar carrito</button><br />
