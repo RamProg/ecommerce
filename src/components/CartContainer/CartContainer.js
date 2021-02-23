@@ -16,11 +16,10 @@ export const CartContainer = () => {
     const [orderNumber, setOrderNumber] = useState(null)
     const [ableFinish, setAbleFinish] = useState("disabled")
     const { auth } = useContext(UserContext);
-    
+
     const mail = _firebase.auth().currentUser.email
 
-    const [ClientData, setClientData] = useState({mail})
-
+    const [ClientData, setClientData] = useState({ mail })
 
     const CREATED = "generada"
 
@@ -93,16 +92,49 @@ export const CartContainer = () => {
         return flag
     }
 
-    function createOrder(e) {
+    async function validateOneStock(i, items) {
+        return new Promise((resolve, reject) => {
+            let doc = items.doc(i.id)
+            doc.get()
+                .then((e) => {
+                    let stock = e.data().stock
+                    if (!(stock >= i.quantity)) {
+                        resolve(false)
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                    reject(error)
+                })
+                .finally(() => {
+                    resolve(true)
+                })
+        })
+
+    }
+
+    async function validateStock(db, itemsOnCart) {
+        const items = db.collection("items")
+        for (let i of itemsOnCart) {
+            const answer = await validateOneStock(i, items)
+            if (!answer) return false
+        }
+        return true
+    }
+
+
+
+    async function createOrder(e) {
         e.preventDefault()
         if (!validateName(ClientData.name) || !validatePhone(ClientData.phone) || !validateMail(ClientData.mail)) {
             // do not create the order if some data is not validated
         } else {
+            const items = getItems()
             //create the order
             setOrderNumber('loading')
             const order = {
                 buyer: ClientData,
-                items: getItems(),
+                items,
                 date: firebase.firestore.Timestamp.fromDate(new Date()),
                 quantity: getQuantity(),
                 total: getTotal(),
@@ -110,21 +142,28 @@ export const CartContainer = () => {
             }
             const db = getFirestore()
             const batch = db.batch()
-            const orders = db.collection("orders")
-            orders.add(order)
-                .then(({ id }) => {
-                    const orderId = id
-                    updateStock(db, order)
-                    setOrderNumber(orderId)
-                }).catch(err => {
-                    console.log("There has been an error ", err)
-                    setOrderNumber(null)
-                }).finally(() => {
-                    batch.commit()
-                })
 
+            // validate the stock
+            const stockIsAvailable = await validateStock(db, items)
+            console.log("desde createORder", stockIsAvailable)
+            if (!stockIsAvailable) alert("no stock")
+            else {
+                const newElement = db.collection("orders").doc()
+                batch.set(newElement, order)
+                batch.commit()
+                    .then(() => {
+                        const orderId = newElement.id
+                        console.log(orderId)
+                        updateStock(db, order)
+                        setOrderNumber(orderId)
+                    }).catch(err => {
+                        console.log("There has been an error ", err)
+                        setOrderNumber(null)
+                    })
+            }
         }
     }
+
 
     function handleDelete(id, selectedOption = null) {
         removeItem(id, selectedOption)
