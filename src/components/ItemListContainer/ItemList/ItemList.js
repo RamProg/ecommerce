@@ -15,7 +15,7 @@ export const ItemList = ({ items, categoryKey, title, loading }) => {
 
                 <React.Fragment>
                     <div className="d-flex">
-                        {items && items.map(e => <Item class="inline" key={e.id} item={e} />)}
+                        {items && items.map(e => <Item className="inline" key={e.id} item={e} />)}
                     </div>
                 </React.Fragment>
             }

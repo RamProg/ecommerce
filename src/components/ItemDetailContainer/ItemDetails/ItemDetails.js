@@ -11,15 +11,15 @@ export const ItemDetails = ({ item, finishFlag, addedQuantity, stock, finishMess
 
   return (
 
-    <div class="container center">
+    <div className="container center">
       {loading ?
         <Spinner animation="border" variant="info" /> :
         item.id ?
           <React.Fragment>
-            <div class="item-container">
-              <div class="inside-item">
+            <div className="item-container">
+              <div className="inside-item">
                 <h1> {item.title} </h1> <h2> {item.description} </h2>{" "}
-                <h3 class="price"> {item.price} </h3>{" "}
+                <h3 className="price"> {item.price} </h3>{" "}
                 <img id="product-image" src={item.pictureUrl} alt="pic" />
                 <div>
                   {auth && !addedQuantity && <div>

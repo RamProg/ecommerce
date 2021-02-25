@@ -127,8 +127,6 @@ export const CartContainer = () => {
         return true
     }
 
-
-
     async function createOrder(e) {
         e.preventDefault()
         if (!validateName(ClientData.name) || !validatePhone(ClientData.phone) || !validateMail(ClientData.mail)) {
@@ -176,12 +174,6 @@ export const CartContainer = () => {
 
     function handleClear() {
         clear()
-    }
-
-    function totalPrice() {
-        let price = 0
-        cart.forEach(e => price += e.item.price * e.quantity);
-        return price
     }
 
     return (

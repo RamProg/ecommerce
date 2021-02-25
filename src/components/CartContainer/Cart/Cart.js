@@ -10,7 +10,7 @@ export const Cart = ({ handleDelete, handleClear, totalPrice, createOrder,
     const { cart } = useContext(Context)
 
     return (
-        <div class="container cart">
+        <div className="container cart">
             <h1>This is cart</h1>
             {cart.length ? <div>
                 <ul>

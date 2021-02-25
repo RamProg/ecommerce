@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { ItemList } from './ItemList/ItemList'
-import Spinner from 'react-bootstrap/Spinner'
 import './ItemListContainer.css'
 import { useParams } from 'react-router-dom'
 import { getFirestore } from '../../firebase'
 
-export const ItemListContainer = ({ greeting }) => {
+export const ItemListContainer = () => {
 
     let { categoryKey } = useParams(null)
 
@@ -36,14 +35,9 @@ export const ItemListContainer = ({ greeting }) => {
         const db = getFirestore()
         let itemsCollection = db.collection("items")
         const categoriesCollection = db.collection("categories")
-        console.log(categoryKey)
         if (categoryKey) {
-            console.log("hay categorieKEy")
             categoriesCollection.where('key', '==', categoryKey).get()
                 .then(response => {
-                    console.log("hay response")
-                    console.log(response)
-                    console.log(response.docs)
                     let categoryId = response.docs[0].id
                     itemsCollection = db.collection("items").where('category', '==', categoryId)
                     setTitle(response.docs[0].data().name)

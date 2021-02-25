@@ -33,10 +33,10 @@ export const NavBar = ({ categories, currentUser, handleShowCartModal, handleSho
                     {
                         auth ?
                             <>
-                                <Nav class="greeting">Hi, {currentUser.displayName}</Nav>
-                                <Link class="mr-5" onClick={logout} to="/">Logout</Link>
-                                <Link onClick={handleShowCartModal}><CartWidget /></Link>
-                                <Link onClick={handleShowWishListModal}><WishListWidget /></Link>
+                                <Nav className="greeting">Hi, {currentUser.displayName}</Nav>
+                                <Link className="mr-5" onClick={logout} to="/">Logout</Link>
+                                <Link to="" onClick={handleShowCartModal}><CartWidget /></Link>
+                                <Link to="" onClick={handleShowWishListModal}><WishListWidget /></Link>
                                 <CartModal show={showCartModal} handleClose={handleCloseCartModal} />
                                 <WishListModal show={showWishListModal} handleClose={handleCloseWishListModal} />
                             </>

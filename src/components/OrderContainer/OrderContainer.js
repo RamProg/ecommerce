@@ -5,13 +5,12 @@ import { InputOrder } from './InputOrder/InputOrder'
 import Spinner from 'react-bootstrap/Spinner'
 import { getFirestore } from '../../firebase'
 
-export const OrderContainer = ({ }) => {
+export const OrderContainer = () => {
 
     const [orderId, setOrderId] = useState(null)
     const [order, setOrder] = useState(null)
     const [loadingOrder, setLoadingOrder] = useState(false)
     const [wrongOrderIdFlag, setWrongOrderIdFlag] = useState(false)
-
 
     function handleInput(id) {
         setOrderId(id)
@@ -30,7 +29,6 @@ export const OrderContainer = ({ }) => {
         const db = getFirestore()
         const orders = db.collection("orders")
         const orderDoc = orders.doc(orderId.toString())
-        console.log("el id de order es", orderId.toString())
         orderDoc.get()
             .then((doc) => {
                 if (doc.exists) {
@@ -49,9 +47,9 @@ export const OrderContainer = ({ }) => {
             }).catch(error => console.log("error searching order ", error))
     }
 
-
     return (
-        <div class="container">
+        <div className="container">
+            <br />
             <div>Enter your order number:</div>
             <InputOrder handleInput={handleInput} handleSubmit={handleSubmit} />
             { loadingOrder && <Spinner animation="border" variant="info" />}

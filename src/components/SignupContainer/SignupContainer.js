@@ -11,7 +11,6 @@ export const SignupContainer = () => {
     const [password, setPassword] = useState("")
     const [name, setName] = useState("")
     const { auth, setAuth } = useContext(UserContext);
-    var currentUser = firebase.auth().currentUser;
 
     const submit = () => {
         firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -29,14 +28,6 @@ export const SignupContainer = () => {
             .catch((error) => {
                 alert(error.code, error.message)
             });
-    }
-
-
-
-    const logout = async () => {
-        console.log("loging out ")
-        await firebase.auth().signOut()
-        setAuth(false)
     }
 
     return (
