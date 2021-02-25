@@ -1,50 +1,95 @@
-import React, { useState, useEffect } from 'react'
-import Spinner from 'react-bootstrap/Spinner'
+import React, { useState, useEffect, useContext } from 'react'
 import { ItemDetails } from './ItemDetails/ItemDetails'
 import './ItemDetailContainer.css'
 import { useParams } from 'react-router-dom'
 import { getFirestore } from '../../firebase'
-import { Link } from 'react-router-dom'
-
+import { Context } from "../../context/CartContext";
+import { WLContext } from "../../context/WishListContext";
+import { UserContext } from "../../context/UserContext";
 
 export const ItemDetailContainer = () => {
 
     let { itemId } = useParams()
 
-    const [product, setProduct] = useState({})
+    const [item, setItem] = useState({})
     const [loading, setLoading] = useState(true)
 
-    function selectOption(selectedOption) {
-        setProduct({ ...product, selectedOption })
-    }
+    const [finishFlag, setFinishFlag] = useState(false);
+    const [addedQuantity, setAddedQuantity] = useState(0);
+    const [stock, setStock] = useState(item.stock);
+    const [finishMessage, setfinishMessage] = useState("");
+    const { addItem } = useContext(Context);
+    const { addItemToWishList } = useContext(WLContext);
+    const { auth } = useContext(UserContext);
 
     useEffect(() => {
         setLoading(true)
         const db = getFirestore()
         const itemsCollection = db.collection("items")
-        const item = itemsCollection.doc(itemId)
-        item.get()
+        const product = itemsCollection.doc(itemId)
+        product.get()
             .then((doc) => {
                 if (!doc.exists) {
                     console.log("el item no existe")
                     return;
                 }
-                console.log(doc)
-                setProduct({ id: doc.id, ...doc.data() })
+                setItem({ id: doc.id, ...doc.data() })
             }).catch(error => console.log("error searching item ", error))
             .finally(() => setLoading(false))
     }, [itemId])
 
-    return (
-        <div class="container center">
-            {loading ?
-                <Spinner animation="border" variant="info" /> :
-                product.id ?
-                    <ItemDetails selectOption={selectOption} item={product} /> :
-                    <p><br />Wow! You are looking for a product that does not exist, maybe it has not been invented yet? Try again in a couple years!
-                    <br /><br /><Link to="/">Go back</Link></p>
+    const showFinish = () => {
+        setFinishFlag(true);
+    };
 
-            }
-        </div>
+    function addHandler(quantityToAdd) {
+        if (quantityToAdd) {
+            if (item.options && !item.selectedOption) {
+                alert("You need to chose a variant")
+            } else setAddedQuantity(quantityToAdd);
+        }
+    }
+
+    function finish() {
+        addItem(item, addedQuantity);
+        setStock(stock - addedQuantity)
+        setFinishFlag(false);
+        setfinishMessage("Added to Cart")
+        setAddedQuantity(0)
+    }
+
+    function toWishList() {
+        addItemToWishList(item, addedQuantity);
+        setFinishFlag(false);
+        setfinishMessage("Added to WishList")
+        setAddedQuantity(0)
+    }
+
+    function undo() {
+        setAddedQuantity(0);
+        setFinishFlag(false);
+        setfinishMessage("")
+        delete item.selectedOption
+    }
+
+    function getInitial(stock) {
+        let initial = 1;
+        if (parseInt(stock) <= 0) initial = 0
+        return initial;
+    }
+
+    function handleOptionSelected(option) {
+        selectOption(option)
+    }
+
+    function selectOption(selectedOption) {
+        setItem({ ...item, selectedOption })
+    }
+
+    return (
+        <ItemDetails item={item} finishFlag={finishFlag} addedQuantity={addedQuantity} stock={stock}
+        setStock={setStock} finishMessage={finishMessage} auth={auth} showFinish={showFinish}
+        addHandler={addHandler} finish={finish} toWishList={toWishList} undo={undo}
+        getInitial={getInitial} handleOptionSelected={handleOptionSelected} loading={loading} />
     )
 }

@@ -57,15 +57,7 @@ export const ItemListContainer = ({ greeting }) => {
 
     return (
 
-        <div class="container wrapper">
-
-            {categoryKey && <div><div>{title}</div><br /></div>}
-
-            {loading ? <Spinner animation="border" variant="info" /> :
-
-                <ItemList items={products} />
-            }
-        </div>
+        <ItemList items={products} categoryKey={categoryKey} title={title} loading={loading}/>
 
     )
 }

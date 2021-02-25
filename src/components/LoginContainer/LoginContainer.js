@@ -11,20 +11,12 @@ export const LoginContainer = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const { auth, setAuth } = useContext(UserContext);
-    var currentUser = firebase.auth().currentUser;
 
     const login = () => {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(() => setAuth(true)
             )
             .catch((error) => alert(error.code, error.message))
-    }
-
-
-    const logout = async () => {
-        console.log("loging out ")
-        firebase.auth().signOut()
-            .then(() => setAuth(false))
     }
 
     return (

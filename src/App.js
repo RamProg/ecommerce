@@ -1,5 +1,5 @@
 import './App.css';
-import { NavBar } from './components/NavBar/NavBar'
+import { NavBarContainer } from './components/NavBarContainer/NavBarContainer'
 import { CartContainer } from './components/CartContainer/CartContainer'
 import { Error } from './components/Error/Error'
 import { ItemListContainer } from './components/ItemListContainer/ItemListContainer'
@@ -14,6 +14,17 @@ import { WishListContext } from './context/WishListContext'
 import { UserContextExport } from './context/UserContext'
 import { FirebaseAppProvider } from 'reactfire'
 import { firebaseConfig } from './firebase'
+import { OrderContainer } from './components/OrderContainer/OrderContainer'
+
+const routeCodes = {
+  Home: '/',
+  ItemDetailContainer: '/item/:itemId',
+  ItemListContainer: '/categories/:categoryKey',
+  CartContainer: '/cart',
+  SignupContainer: '/signup',
+  LoginContainer: '/login',
+  OrderContainer: '/orders'
+};
 
 function App() {
   return (
@@ -23,24 +34,27 @@ function App() {
           <UserContextExport>
             <FirebaseAppProvider firebaseConfig={firebaseConfig}>
               <div id="full">
-                <NavBar />
+                <NavBarContainer />
                 <Switch>
-                  <Route exact path="/item/:itemId">
+                  <Route exact path={routeCodes.ItemDetailContainer}>
                     <ItemDetailContainer />
                   </Route>
-                  <Route exact path="/categories/:categoryKey">
-                    <ItemListContainer greeting={"Bienvenido a Cosmic"} />
+                  <Route exact path={routeCodes.Home}>
+                    <ItemListContainer />
                   </Route>
-                  <Route exact path="/cart">
+                  <Route exact path={routeCodes.CartContainer}>
                     <CartContainer />
                   </Route>
-                  <Route exact path="/">
-                    <ItemListContainer greeting={"Bienvenido a Cosmic"} />
+                  <Route exact path={routeCodes.ItemListContainer}>
+                    <ItemListContainer />
                   </Route>
-                  <Route exact path="/signup">
+                  <Route exact path={routeCodes.OrderContainer}>
+                    <OrderContainer />
+                  </Route>
+                  <Route exact path={routeCodes.SignupContainer}>
                     <SignupContainer />
                   </Route>
-                  <Route exact path="/login">
+                  <Route exact path={routeCodes.LoginContainer}>
                     <LoginContainer />
                   </Route>
                   <Route path="/" component={Error} />

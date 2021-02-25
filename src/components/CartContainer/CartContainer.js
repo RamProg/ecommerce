@@ -32,6 +32,11 @@ export const CartContainer = () => {
         if (ClientData.name && ClientData.phone && ClientData.mail) setAbleFinish("")
     }, [ClientData])
 
+    function getKey(id, selectedOption = null) {
+        let value = id
+        if (selectedOption) value += selectedOption
+        return value
+    }
 
     function getTotal() {
         let total = 0
@@ -146,7 +151,7 @@ export const CartContainer = () => {
             // validate the stock
             const stockIsAvailable = await validateStock(db, items)
             console.log("desde createORder", stockIsAvailable)
-            if (!stockIsAvailable) alert("no stock")
+            if (!stockIsAvailable) alert("We are sorry, there is not enough available stock for your purchase")
             else {
                 const newElement = db.collection("orders").doc()
                 batch.set(newElement, order)
@@ -184,7 +189,7 @@ export const CartContainer = () => {
             {auth ?
                 <Cart handleDelete={handleDelete} handleClear={handleClear} totalPrice={getTotal}
                     createOrder={createOrder} updateData={updateData} orderNumber={orderNumber}
-                    ableFinish={ableFinish} mail={mail} />
+                    ableFinish={ableFinish} mail={mail} getKey={getKey}/>
                 :
                 <Redirect to={{ pathname: '/' }} />
             }
