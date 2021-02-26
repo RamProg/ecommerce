@@ -35,8 +35,8 @@ export const NavBar = ({ categories, currentUser, handleShowCartModal, handleSho
                             <>
                                 <Nav className="greeting">Hi, {currentUser.displayName}</Nav>
                                 <Link className="mr-5" onClick={logout} to="/">Logout</Link>
-                                <Link to="" onClick={handleShowCartModal}><CartWidget /></Link>
-                                <Link to="" onClick={handleShowWishListModal}><WishListWidget /></Link>
+                                <span id="modal" onClick={handleShowCartModal}><CartWidget /></span>
+                                <span id="modal" onClick={handleShowWishListModal}><WishListWidget /></span>
                                 <CartModal show={showCartModal} handleClose={handleCloseCartModal} />
                                 <WishListModal show={showWishListModal} handleClose={handleCloseWishListModal} />
                             </>

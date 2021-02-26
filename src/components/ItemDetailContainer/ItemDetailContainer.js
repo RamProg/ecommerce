@@ -13,10 +13,9 @@ export const ItemDetailContainer = () => {
 
     const [item, setItem] = useState({})
     const [loading, setLoading] = useState(true)
-
     const [finishFlag, setFinishFlag] = useState(false);
     const [addedQuantity, setAddedQuantity] = useState(0);
-    const [stock, setStock] = useState(item.stock);
+    const [stock, setStock] = useState(1);
     const [finishMessage, setfinishMessage] = useState("");
     const { addItem } = useContext(Context);
     const { addItemToWishList } = useContext(WLContext);
@@ -34,6 +33,7 @@ export const ItemDetailContainer = () => {
                     return;
                 }
                 setItem({ id: doc.id, ...doc.data() })
+                setStock(doc.data().stock)
             }).catch(error => console.log("error searching item ", error))
             .finally(() => setLoading(false))
     }, [itemId])
@@ -88,8 +88,8 @@ export const ItemDetailContainer = () => {
 
     return (
         <ItemDetails item={item} finishFlag={finishFlag} addedQuantity={addedQuantity} stock={stock}
-        setStock={setStock} finishMessage={finishMessage} auth={auth} showFinish={showFinish}
-        addHandler={addHandler} finish={finish} toWishList={toWishList} undo={undo}
-        getInitial={getInitial} handleOptionSelected={handleOptionSelected} loading={loading} />
+            setStock={setStock} finishMessage={finishMessage} auth={auth} showFinish={showFinish}
+            addHandler={addHandler} finish={finish} toWishList={toWishList} undo={undo}
+            getInitial={getInitial} handleOptionSelected={handleOptionSelected} loading={loading} />
     )
 }

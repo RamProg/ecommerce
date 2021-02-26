@@ -44,7 +44,6 @@ export const NavBarContainer = () => {
     }, [])
 
     function logout () {
-        console.log("loging out ")
         firebase.auth().signOut()
             .then(() => setAuth(false))
     }

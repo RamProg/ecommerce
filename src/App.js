@@ -15,6 +15,7 @@ import { UserContextExport } from './context/UserContext'
 import { FirebaseAppProvider } from 'reactfire'
 import { firebaseConfig } from './firebase'
 import { OrderContainer } from './components/OrderContainer/OrderContainer'
+import { CheckoutContainer } from './components/CartContainer/CheckoutContainer/CheckoutContainer';
 
 const routeCodes = {
   Home: '/',
@@ -23,7 +24,8 @@ const routeCodes = {
   CartContainer: '/cart',
   SignupContainer: '/signup',
   LoginContainer: '/login',
-  OrderContainer: '/orders'
+  OrderContainer: '/orders',
+  CheckoutContainer: '/checkout',
 };
 
 function App() {
@@ -56,6 +58,9 @@ function App() {
                   </Route>
                   <Route exact path={routeCodes.LoginContainer}>
                     <LoginContainer />
+                  </Route>
+                  <Route exact path={routeCodes.CheckoutContainer}>
+                    <CheckoutContainer />
                   </Route>
                   <Route path="/" component={Error} />
                 </Switch>
