@@ -27,7 +27,8 @@ Sure, you can hire me as a developer and hopefully when spaceships are in the ma
 
 You can visit https://coderhouse-ecommerce.herokuapp.com/ or you can clone this repo with:
 
- `git clone https://github.com/RamProg/ecommerce`
+    git clone https://github.com/RamProg/ecommerce
+
  
  And then you need to install the dependencies with::
 
