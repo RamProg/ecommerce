@@ -7,7 +7,7 @@ export const ItemList = ({ items, categoryKey, title, loading }) => {
 
     return (
 
-        <div className="container wrapper">
+        <div className="container mt-5">
 
             {categoryKey && <div><div>{title}</div><br /></div>}
 

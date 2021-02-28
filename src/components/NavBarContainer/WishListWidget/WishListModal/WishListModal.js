@@ -60,8 +60,6 @@ export const WishListModal = ({ show, handleClose }) => {
                         <p>La wishList esta vacia</p>
                     }
                 </div>
-
-
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>

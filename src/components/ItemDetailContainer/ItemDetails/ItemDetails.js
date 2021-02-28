@@ -7,7 +7,8 @@ import Spinner from 'react-bootstrap/Spinner'
 import { Link } from 'react-router-dom'
 
 export const ItemDetails = ({ item, finishFlag, addedQuantity, stock, finishMessage, auth,
-  showFinish, addHandler, finish, toWishList, undo, getInitial, handleOptionSelected, loading}) => {
+  showFinish, addHandler, finish, toWishList, undo, initial, handleOptionSelected, loading,
+  variantChosen, setVariantChosen, showCartLink }) => {
 
   return (
 
@@ -23,14 +24,18 @@ export const ItemDetails = ({ item, finishFlag, addedQuantity, stock, finishMess
                 <img id="product-image" src={item.pictureUrl} alt="pic" />
                 <div>
                   {auth && !addedQuantity && <div>
-                    {item.options && <CustomItem options={item.options} handleOptionSelected={handleOptionSelected} />}
-                    <ItemCount
+                    {item.options && <CustomItem options={item.options}
+                      handleOptionSelected={handleOptionSelected} />}
+                    {/* If there is an option selected or there are no different variants available, then show the counter */}
+                    {(variantChosen || !item.options) && <ItemCount
+                      setVariantChosen={setVariantChosen}
                       stock={stock}
-                      initial={getInitial(item.stock)}
+                      initial={initial}
                       onAdd={addHandler}
                       onFinish={showFinish}
-                    />
+                    />}
                     <p>{finishMessage}</p>
+                    {showCartLink && <Link to="/cart">Go to Cart</Link>}
                     {parseInt(item.stock) <= 0 && <p>Sorry, there is no more stock</p>}
                   </div>}
                   {finishFlag && (

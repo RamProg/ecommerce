@@ -10,12 +10,6 @@ export const CartContainer = () => {
     const { cart, removeItem, clear } = useContext(Context)
     const { auth } = useContext(UserContext);
 
-    function getKey(id, selectedOption = null) {
-        let value = id
-        if (selectedOption) value += selectedOption
-        return value
-    }
-
     function handleDelete(id, selectedOption = null) {
         removeItem(id, selectedOption)
     }
@@ -31,8 +25,7 @@ export const CartContainer = () => {
     return (
         <div className="container">
             {auth ?
-                    <Cart handleDelete={handleDelete} handleClear={handleClear} totalPrice={getTotal}
-                        getKey={getKey} />
+                    <Cart handleDelete={handleDelete} handleClear={handleClear} totalPrice={getTotal} />
                 :
                 <Redirect to={{ pathname: '/' }} />
             }

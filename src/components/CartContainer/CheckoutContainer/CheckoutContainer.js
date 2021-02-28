@@ -86,7 +86,9 @@ export const CheckoutContainer = () => {
             id: e.item.id,
             title: e.item.title,
             quantity: e.quantity,
-            price: e.item.price
+            price: e.item.price,
+            description: e.item.description,
+            selectedOption: e.item.selectedOption ? e.item.selectedOption : ""
         }))
     }
     function getQuantity() {

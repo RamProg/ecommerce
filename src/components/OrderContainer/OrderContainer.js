@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import './OrderContainer.css'
 import { OrderDisplay } from '../CartContainer/Cart/OrderDisplay/OrderDisplay'
 import { InputOrder } from './InputOrder/InputOrder'
 import Spinner from 'react-bootstrap/Spinner'

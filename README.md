@@ -29,7 +29,6 @@ You can visit https://coderhouse-ecommerce.herokuapp.com/ or you can clone this 
 
     git clone https://github.com/RamProg/ecommerce
 
- 
  And then you need to install the dependencies with::
 
     npm i
@@ -37,6 +36,18 @@ You can visit https://coderhouse-ecommerce.herokuapp.com/ or you can clone this 
 Finally, you need to start it with:
 
     npm start
+
+## Comments
+
+So far this project in focused on logic and usability, the aesthetics and design are not a priority right now. So you might find it ugly, but the plan is to work on that once everything else is finished. I focused on complying with every requisit, even the extra requisites from the Coder House course.
+
+## Dependencies
+
+On top o the dependencies worked on the Coder House course, I used "@react-firebase/auth": "^0.2.10"
+
+https://react-firebase-js.com/docs/react-firebase-auth/getting-started
+
+I used this depencencie to manage firebase user sessions.
 
 ## How can I contact you?
 

@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from "react";
 
-export const ItemCount = ({ stock, initial, onAdd, onFinish }) => {
+export const ItemCount = ({ stock, initial, onAdd, onFinish, setVariantChosen }) => {
   const [contador, setContador] = useState(initial);
   const [lessflag, setLessflag] = useState(false);
   const [moreflag, setMoreflag] = useState(false);
+  const [addFlag, setAddFlag] = useState(false);
 
-  useEffect(initial => {
-    if (initial === 0) {
+  // TODO fix that I'm able to click añadir without choosing a variant
+
+  useEffect(() => {
+    setContador(initial)
+    }, [initial])
+
+  useEffect(() => {
+    if (stock <= 0) {
       setLessflag(true);
       setMoreflag(true);
+      setAddFlag(true);
     }
-  }, [initial]);
+  }, [stock]);
 
   const sumar = () => {
     contador < stock && setContador(contador + 1);
@@ -23,6 +31,7 @@ export const ItemCount = ({ stock, initial, onAdd, onFinish }) => {
     setMoreflag(false);
   };
   const onEachAdd = () => {
+    setVariantChosen(false);
     if (contador) {
       onAdd(contador);
       onFinish();
@@ -40,7 +49,7 @@ export const ItemCount = ({ stock, initial, onAdd, onFinish }) => {
             +
           </button>
         </div>
-        <button className="btn btn-outline-info" onClick={onEachAdd}>
+        <button disabled={addFlag} className="btn btn-outline-info" onClick={onEachAdd}>
           Añadir
         </button>
       </div>{" "}

@@ -4,6 +4,7 @@ import { Context } from '../../../../context/CartContext'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
+import { OrderDisplay } from '../../../CartContainer/Cart/OrderDisplay/OrderDisplay'
 
 export const CartModal = ({ show, handleClose }) => {
     const { cart, removeItem, clear } = useContext(Context)
@@ -21,12 +22,6 @@ export const CartModal = ({ show, handleClose }) => {
         return price
     }
 
-    function getKey(id, selectedOption = null) {
-        let value = id
-        if (selectedOption) value += selectedOption
-        return value
-    }
-
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -35,12 +30,7 @@ export const CartModal = ({ show, handleClose }) => {
             <Modal.Body>
                 <div>
                     {cart.length ? <div>
-                        <ul>
-                            {cart.map(e =>
-                                (e.item.id && e.quantity) &&
-                                <li key={getKey(e.item.id, e.item.selectedOption)}>{e.item.title} {e.item.selectedOption && <span>| Variant: {e.item.selectedOption} |</span>} x {e.quantity}: $ {e.item.price}<span> </span>
-                                    <button onClick={() => handleDelete(e.item.id, e.item.selectedOption)}>Eliminar elemento</button></li>)}
-                        </ul>
+                        <OrderDisplay order={cart} handleDelete={handleDelete} />
                         <span>Precio total: $ {totalPrice()} </span>
                         <button onClick={handleClear}>Vaciar carrito</button><br />
                         <br />

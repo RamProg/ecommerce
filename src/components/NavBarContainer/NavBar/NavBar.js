@@ -15,7 +15,7 @@ export const NavBar = ({ categories, currentUser, handleShowCartModal, handleSho
 
     return (
         <React.Fragment>
-            <Navbar bg="dark" variant="dark" expand="lg">
+            <Navbar transition={null} bg="dark" variant="dark" expand="lg">
                 <Navbar.Brand as={Link} to="/">Cosmic Ecommerce</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">

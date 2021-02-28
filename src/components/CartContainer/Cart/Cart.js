@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import './Cart.css'
 import { OrderDisplay } from './OrderDisplay/OrderDisplay'
 
-export const Cart = ({ handleDelete, handleClear, totalPrice, getKey }) => {
+export const Cart = ({ handleDelete, handleClear, totalPrice }) => {
     const { cart } = useContext(Context)
 
     return (
@@ -12,7 +12,7 @@ export const Cart = ({ handleDelete, handleClear, totalPrice, getKey }) => {
             <h1>This is cart</h1>
             {cart.length ? <div>
                 <ul>
-                    <OrderDisplay order={cart} handleDelete={handleDelete} getKey={getKey} />
+                    <OrderDisplay order={cart} handleDelete={handleDelete} />
                 </ul>
                 <p>Precio total: $ {totalPrice()}</p>
                 <button onClick={handleClear}>Vaciar carrito</button><br />

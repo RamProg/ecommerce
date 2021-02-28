@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react'
-import './NavBarContainer.css'
 import {NavBar} from './NavBar/NavBar'
 import { getFirestore } from '../../firebase'
 import 'firebase/auth'

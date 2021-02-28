@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import { ItemDetails } from './ItemDetails/ItemDetails'
-import './ItemDetailContainer.css'
 import { useParams } from 'react-router-dom'
 import { getFirestore } from '../../firebase'
 import { Context } from "../../context/CartContext";
@@ -17,9 +16,14 @@ export const ItemDetailContainer = () => {
     const [addedQuantity, setAddedQuantity] = useState(0);
     const [stock, setStock] = useState(1);
     const [finishMessage, setfinishMessage] = useState("");
+    const [variantChosen, setVariantChosen] = useState(false)
+    const [showCartLink, setShowCartLink] = useState(false)
+    const [initial, setInitial] = useState(0)
     const { addItem } = useContext(Context);
     const { addItemToWishList } = useContext(WLContext);
     const { auth } = useContext(UserContext);
+    const cartContext = useRef(0);
+    cartContext.current = useContext(Context);
 
     useEffect(() => {
         setLoading(true)
@@ -33,10 +37,18 @@ export const ItemDetailContainer = () => {
                     return;
                 }
                 setItem({ id: doc.id, ...doc.data() })
-                setStock(doc.data().stock)
+                let stockInCart = 0
+                cartContext.current.cart.forEach(e => {
+                    if (e.item.id === doc.id) stockInCart = e.quantity
+                });
+                setStock(doc.data().stock - stockInCart)
             }).catch(error => console.log("error searching item ", error))
             .finally(() => setLoading(false))
     }, [itemId])
+
+    useEffect(() => {
+        setInitial(stock > 0 ? 1 : 0)
+    }, [stock])
 
     const showFinish = () => {
         setFinishFlag(true);
@@ -55,6 +67,8 @@ export const ItemDetailContainer = () => {
         setStock(stock - addedQuantity)
         setFinishFlag(false);
         setfinishMessage("Added to Cart")
+        setShowCartLink(true)
+
         setAddedQuantity(0)
     }
 
@@ -72,13 +86,10 @@ export const ItemDetailContainer = () => {
         delete item.selectedOption
     }
 
-    function getInitial(stock) {
-        let initial = 1;
-        if (parseInt(stock) <= 0) initial = 0
-        return initial;
-    }
-
     function handleOptionSelected(option) {
+        !variantChosen && setVariantChosen(true)
+        setfinishMessage("")
+        setShowCartLink(false)
         selectOption(option)
     }
 
@@ -90,6 +101,7 @@ export const ItemDetailContainer = () => {
         <ItemDetails item={item} finishFlag={finishFlag} addedQuantity={addedQuantity} stock={stock}
             setStock={setStock} finishMessage={finishMessage} auth={auth} showFinish={showFinish}
             addHandler={addHandler} finish={finish} toWishList={toWishList} undo={undo}
-            getInitial={getInitial} handleOptionSelected={handleOptionSelected} loading={loading} />
+            initial={initial} handleOptionSelected={handleOptionSelected} loading={loading}
+            variantChosen={variantChosen} setVariantChosen={setVariantChosen} showCartLink={showCartLink} />
     )
 }

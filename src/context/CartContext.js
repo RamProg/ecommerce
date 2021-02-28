@@ -40,7 +40,7 @@ export const CartContext = ({ children }) => {
                     ...cart,
                     {
                         item,
-                        quantity
+                        quantity,
                     }]
 
                 )
